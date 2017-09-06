@@ -8,21 +8,22 @@
       <%- include('_nav') %>
         <div class="container">
           <div class="col-md-8 col-md-offset-2">
+            <div class="well">同学，想对我说点什么吗？想对我说心里话可没那么容易哟。你只有把第九节课的作业搞明白了才知道怎么对我说心里话。我等着你</div>
             <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="media" v-for="item in comments">
+              <div class="panel-body markdown-body">
+                <div class="media media-x" v-for="item in comments">
                   <div class="media-body">
                     <h4 class="media-heading">{{ item.name }}</h4>
-                    {{ item.content }}
+                    <div v-html="item.content"></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-8 col-md-offset-2">
+          <!-- <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
               <div class="panel-body">
-<!--                 <form>
+                <form>
                   <div class="form-group">
                     <label for="exampleInputEmail1">我的名字</label>
                     <input type="text" class="form-control" v-model="name">
@@ -36,10 +37,10 @@
                     <textarea class="form-control" rows="10" v-model="content"></textarea>
                   </div>
                   <button type="button" class="btn btn-primary btn-lg btn-block" v-on:click="submit">提交</button>
-                </form> -->
+                </form>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
     </div>
   </body>
@@ -72,7 +73,7 @@
 
           $.post('/sayToTeacher/add', { name: this.name, account: this.account, content: this.content }, function (result) {
             if (!result || !result.code) {
-              alert('error');
+              alert(result.message);
             } else {
               that.name = '';
               that.account = '';
